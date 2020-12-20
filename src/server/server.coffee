@@ -22,7 +22,6 @@ app.use express.urlencoded({extended: true})
 app.get '/', (req, res) ->
   res.send("Express Server is working!")
 
-
 console.log "APP - Connecting to Database"
 connectDatabase()
 
