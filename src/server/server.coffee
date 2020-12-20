@@ -5,6 +5,9 @@ cors           = require 'cors'
 helmet         = require 'helmet'
 morgan         = require 'morgan'
 
+connectDatabase = require('./config/database').connect
+
+
 app = express()
 
 app.set('port', process.env.PORT or 5050)
@@ -15,6 +18,9 @@ app.use morgan(':method :url :status :response-time ms - :res[content-length]')
 
 app.use express.json()
 app.use express.urlencoded({extended: true})
+
+console.log "APP - Connecting to Database"
+connectDatabase()
 
 ################################################################
 # Startup
