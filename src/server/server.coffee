@@ -1,10 +1,17 @@
 {createServer} = require 'http'
 express        = require 'express'
 path           = require 'path'
+cors           = require 'cors'
+helmet         = require 'helmet'
+morgan         = require 'morgan'
 
 app = express()
 
 app.set('port', process.env.PORT or 5050)
+
+app.use helmet()
+app.use cors()
+app.use morgan(':method :url :status :response-time ms - :res[content-length]')
 
 app.use express.json()
 app.use express.urlencoded({extended: true})
