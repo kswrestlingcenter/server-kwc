@@ -14,11 +14,11 @@ module.exports = merge(config, {
     stats: {
       color: true
     },
-    port: 4000,
+    port: 5050,
     host: '0.0.0.0',
     proxy: {
       "/api": {
-        target: "http://localhost:5050"
+        target: "http://localhost:5051"
       }
     }
   },

@@ -10,7 +10,7 @@ connectDatabase = require('./config/database').connect
 
 app = express()
 
-app.set('port', process.env.PORT or 5050)
+app.set('port', process.env.PORT or 5051)
 
 app.use helmet()
 app.use cors()
