@@ -1,6 +1,6 @@
 <template>
-  <div id="home">
-    <h1>HOME PAGE</h1>
+  <div>
+    <h1>LOGIN PAGE</h1>
     <form @submit.prevent="login">
       <label for="email">
         Email:
@@ -26,6 +26,8 @@
 export default {
   data () {
     return {
+      email: "",
+      password: "",
       error: null
     }
   },
