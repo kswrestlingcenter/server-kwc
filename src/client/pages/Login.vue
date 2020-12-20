@@ -34,6 +34,7 @@ export default {
    methods: {
     login () {
       console.log(`Logging in as ${this.email}`)
+      console.log(`vuexUser ${this.$store.state.user}`)
     }
    }
 }
