@@ -1,0 +1,19 @@
+{
+  "name": "server-kwc",
+  "version": "1.0.0",
+  "description": "Admin portal CMS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server/index.js",
+    "server": "node-dev --no-deps --respawn src/server/index.js",
+    "test": "test"
+  },
+  "author": "Aldon L. Isenberg II",
+  "license": "ISC",
+  "devDependencies": {
+    "node-dev": "^6.2.0"
+  },
+  "dependencies": {
+    "coffeescript": "^2.5.1"
+  }
+}
