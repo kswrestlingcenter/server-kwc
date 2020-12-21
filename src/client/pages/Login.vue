@@ -26,17 +26,26 @@
 export default {
   data () {
     return {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       error: null
     }
   },
-   methods: {
+  methods: {
     login () {
-      console.log(`Logging in as ${this.email}`)
-      console.log(`vuexUser ${this.$store.state.user}`)
+      this.$store
+        .dispatch('login', {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push({ name: 'dashboard' })
+        })
+        .catch(err => {
+          this.error = err.response.data.error
+        })
     }
-   }
+  }
 }
 </script>
 

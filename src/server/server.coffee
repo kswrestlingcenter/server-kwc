@@ -6,7 +6,7 @@ helmet         = require 'helmet'
 morgan         = require 'morgan'
 
 connectDatabase = require('./config/database').connect
-
+setupRoutes     = require './config/routes'
 
 app = express()
 
@@ -19,8 +19,8 @@ app.use morgan(':method :url :status :response-time ms - :res[content-length]')
 app.use express.json()
 app.use express.urlencoded({extended: true})
 
-app.get '/', (req, res) ->
-  res.send("Express Server is working!")
+console.log "APP - Setting up Routes"
+setupRoutes(app)
 
 console.log "APP - Connecting to Database"
 connectDatabase()
