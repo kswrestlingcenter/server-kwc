@@ -24,8 +24,9 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('user')
-  console.log({loggedIn}, localStorage.getItem('user'))
+  console.log({loggedIn}, localStorage.getItem('user'), to)
   if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+    console.log("\n\n\n\nHERE\n\n\n")
     next('/')
   }
   next()
