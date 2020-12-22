@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './pages/Dashboard.vue'
 import Login from './pages/Login.vue'
+import AddEvent from './pages/AddEvent.vue'
 
 Vue.use(Router)
 
@@ -17,6 +18,12 @@ const router = new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/addEvent',
+      name: 'addEvent',
+      component: AddEvent,
       meta: { requiresAuth: true }
     }
   ]
