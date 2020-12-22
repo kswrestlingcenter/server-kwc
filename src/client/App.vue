@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <nav-bar-login v-if="!loggedIn"/>
-    <nav-bar v-else/>
+    <nav-bar/>
     <router-view class="main"/>
   </div>
 </template>
