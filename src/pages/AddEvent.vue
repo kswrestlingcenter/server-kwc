@@ -2,8 +2,8 @@
   <v-container>
     <v-row>
       <v-col>
-        <h1>Signup</h1>
-        <v-form ref="signUpForm" v-model="formValidity">
+        <h1>Add Event</h1>
+        <v-form ref="addEventForm" v-model="formValidity">
           <v-text-field
             label="Email"
             type="email"
@@ -76,13 +76,13 @@ export default {
   }),
   methods: {
     resetForm() {
-      this.$refs.signUpForm.reset()
+      this.$refs.addEventForm.reset()
     },
     resetValidation() {
-      this.$refs.signUpForm.resetValidation()
+      this.$refs.addEventForm.resetValidation()
     },
     validateForm() {
-      this.$refs.signUpForm.validate()
+      this.$refs.addEventForm.validate()
     }
   }
 }

@@ -1,21 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-toolbar-title>Vuetify Dashboard</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        v-for="link in links"
-        :key="`${link.label}-header-link`"
-        text
-        rounded
-        :to="link.url"
-      >
-        {{ link.label }}
-      </v-btn>
-      <v-btn @click="toggleTheme" text rounded>
-        Toggle Theme
-      </v-btn>
-    </v-app-bar>
+    <navigation-bar/>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -41,30 +26,11 @@
 </template>
 
 <script>
+import NavigationBar from './components/NavigationBar.vue'
 export default {
+  components: { NavigationBar },
   name: 'App',
-  data() {
-    return {
-      links: [
-        {
-          label: 'Home',
-          url: '/'
-        },
-        {
-          label: 'Login',
-          url: '/login'
-        },
-        {
-          label: 'Signup',
-          url: '/signup'
-        },
-        {
-          label: 'Dashboard',
-          url: '/dashboard'
-        }
-      ]
-    }
-  },
+
   methods: {
     toggleTheme() {
       this.$vuetify.theme.themes.dark.anchor = '#41B883'
