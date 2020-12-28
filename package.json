@@ -5,10 +5,10 @@
   "author": "Aldon L. Isenberg II",
   "scripts": {
     "lint": "vue-cli-service lint",
-    "client": "vue-cli-service serve src/client/appEntry.js",
+    "client": "vue-cli-service serve src/appEntry.js --port 5050",
     "dev": "npm run client & npm run server",
-    "server": "node-dev --no-deps --respawn src/server/index.js",
-    "start": "node src/server/index.js",
+    "server": "node-dev --no-deps --respawn server/index.js",
+    "start": "node server/index.js",
     "test": "test"
   },
   "main": "index.js",

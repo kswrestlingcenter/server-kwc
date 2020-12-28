@@ -5,8 +5,9 @@
 		</v-card-title>
 		<v-card-text>
 			<v-form>
-				<v-text-field label="Username" prepend-icon="mdi-account-circle" />
+				<v-text-field label="Username" prepend-icon="mdi-account-circle" v-model="email"/>
 				<v-text-field
+					v-model="password"
 					:type="showPassword ? 'text' : 'password'"
 					label="Password"
 					prepend-icon="mdi-lock"
@@ -19,7 +20,7 @@
 		<v-card-actions>
 			<v-btn color="success">Register</v-btn>
 			<v-spacer></v-spacer>
-			<v-btn color="info">Login</v-btn>
+			<v-btn color="info" @click="login()">Login</v-btn>
 		</v-card-actions>
 	</v-card>
 </template>
@@ -29,9 +30,28 @@ export default {
 	name: 'LoginPage',
 	data() {
 		return {
-			showPassword: false
+			showPassword: false,
+			email: '',
+      password: '',
+      error: null
 		}
-	}
+	},
+  methods: {
+    login () {
+			console.log("LOGGINGN IN")
+      this.$store
+        .dispatch('login', {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push({ name: 'dashboard' })
+        })
+        .catch(err => {
+          this.error = err.response.data.error
+        })
+    }
+  }
 }
 </script>
 
