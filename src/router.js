@@ -10,7 +10,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'landing',
       component: Login
     },
     {
@@ -22,11 +22,11 @@ const router = new Router({
       component: () => import(/* webpackChunkName: "about" */ './pages/About.vue'),
       meta: { requiresAuth: true }
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('./pages/Login.vue')
-    },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   component: () => import('./pages/Login.vue')
+    // },
     {
       path: '/dashboard',
       name: 'dashboard',
@@ -36,7 +36,8 @@ const router = new Router({
     {
       path: '/addEvent',
       name: 'addEvent',
-      component: () => import('./pages/AddEvent.vue')
+      component: () => import('./pages/AddEvent.vue'),
+      meta: { requiresAuth: true }
     }
   ]
 })
