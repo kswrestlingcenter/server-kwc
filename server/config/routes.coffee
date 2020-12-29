@@ -27,3 +27,7 @@ module.exports = (app) ->
     jwt.verify req.token, 'the_secret_key', (err) ->
       return res.sendStatus(401) if err
       Controllers.Events().addEvent req, res
+
+  app.post '/api/mailingList', (req, res) ->
+    console.log "MAILING LIST", req.body
+    Controllers.Visitor().addToMarketing req, res
