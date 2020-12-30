@@ -5,23 +5,23 @@
         <h1>Add Event</h1>
         <v-form ref="addEventForm" v-model="formValidity">
           <v-text-field
-            label="Email"
+            label="Email of Contact Person"
             type="email"
             v-model="email"
             :rules="emailRules"
             required
           ></v-text-field>
           <v-autocomplete
-            label="Which browser do you use?"
-            :items="browsers"
+            label="Type of event?"
+            :items="eventType"
           ></v-autocomplete>
-          <v-file-input label="Attach profile picture"></v-file-input>
           <v-text-field
-            v-model="birthday"
-            label="Birthday"
+            v-model="eventDate"
+            label="Event Date"
             readonly
           ></v-text-field>
-          <v-date-picker v-model="birthday"></v-date-picker>
+          <v-date-picker v-model="event"></v-date-picker>
+          <v-file-input label="Attach logo"></v-file-input>
           <v-checkbox
             label="Agree to terms & conditions"
             v-model="agreeToTerms"
@@ -57,8 +57,8 @@ export default {
         !!value ||
         'You must agree to the terms and conditions to sign up for an account.'
     ],
-    birthday: '',
-    browsers: ['Chrome', 'Firefox', 'Safari', 'Edge', 'Brave'],
+    eventDate: '',
+    eventType: ['Dual', 'Dual Tournament', 'Open Tournament', 'Invite Tournament', 'Round Robin'],
     email: '',
     emailRules: [
       value => !!value || 'Email is required.',
