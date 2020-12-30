@@ -11,7 +11,8 @@ const router = new Router({
     {
       path: '/',
       name: 'landing',
-      component: Login
+      component: Login,
+      meta: { redirectWhenAuthenticated: true}
     },
     {
       path: '/about',
@@ -48,7 +49,14 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
     next('/')
   }
-  next()
+
+  else if (to.matched.some(record => record.meta.redirectWhenAuthenticated) && loggedIn) {
+    next('/dashboard')
+  }
+
+  else  {
+    next()
+  }
 })
 
 export default router
