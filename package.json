@@ -5,6 +5,7 @@
   "author": "Aldon L. Isenberg II",
   "scripts": {
     "lint": "vue-cli-service lint",
+    "build": "vue-cli-service build src/appEntry.js",
     "client": "vue-cli-service serve src/appEntry.js --port 5050",
     "dev": "npm run client & npm run server",
     "server": "node-dev --no-deps --respawn server/index.js",
