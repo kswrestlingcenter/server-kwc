@@ -21,7 +21,7 @@
             readonly
           ></v-text-field>
           <v-date-picker v-model="event"></v-date-picker>
-          <v-file-input label="Attach logo"></v-file-input>
+          <v-file-input label="Attach picture"></v-file-input>
           <v-checkbox
             label="Agree to terms & conditions"
             v-model="agreeToTerms"

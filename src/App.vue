@@ -17,9 +17,11 @@
         >
           {{ link.label }}
         </v-btn> -->
-        <v-btn @click="toggleTheme" text rounded>
+
+        <!-- <v-btn @click="toggleTheme" text rounded>
           Switch to Light/Dark Mode
-        </v-btn>
+        </v-btn> -->
+
         <v-flex primary lighten-2 py-4 text-center white--text xs12>
           {{ new Date().getFullYear() }} — <strong>KS Wrestling Center</strong>
         </v-flex>
