@@ -16,12 +16,18 @@
             :items="eventType"
           ></v-autocomplete>
           <v-text-field
-            v-model="eventDate"
-            label="Event Date"
+            v-model="eventDates[0]"
+            label="Start Date"
             readonly
           ></v-text-field>
-          <v-date-picker v-model="event"></v-date-picker>
-          <v-file-input label="Attach picture"></v-file-input>
+          <v-text-field
+            v-model="endDate"
+            label="End Date"
+            readonly
+          ></v-text-field>
+          <v-date-picker v-model="eventDates" range></v-date-picker>
+          <v-file-input label="Add Logo"></v-file-input>
+          <v-file-input label="Attach tournament Flyer"></v-file-input>
           <v-checkbox
             label="Agree to terms & conditions"
             v-model="agreeToTerms"
@@ -29,11 +35,20 @@
             required
           ></v-checkbox>
           <v-btn
-            type="submit"
+            type="button"
             color="primary"
             class="mr-4"
             :disabled="!formValidity"
-            >Submit</v-btn
+            @click="publish()"
+            >Publish</v-btn
+          >
+          <v-btn
+            type="button"
+            color="primary"
+            class="mr-4"
+            :disabled="!formValidity"
+            @click="saveNotPublish()"
+            >Save For Later</v-btn
           >
           <v-btn color="success" class="mr-4" @click="validateForm"
             >Validate Form</v-btn
@@ -50,6 +65,11 @@
 
 <script>
 export default {
+  computed: {
+    endDate() {
+      return this.eventDates[1] ? this.eventDates[1] : this.eventDates[0]
+    }
+  },
   data: () => ({
     agreeToTerms: false,
     agreeToTermsRules: [
@@ -57,7 +77,7 @@ export default {
         !!value ||
         'You must agree to the terms and conditions to sign up for an account.'
     ],
-    eventDate: '',
+    eventDates: [],
     eventType: ['Dual', 'Dual Tournament', 'Open Tournament', 'Invite Tournament', 'Round Robin'],
     email: '',
     emailRules: [
@@ -83,6 +103,12 @@ export default {
     },
     validateForm() {
       this.$refs.addEventForm.validate()
+    },
+    publish() {
+      console.log("PUBLISHING")
+    },
+    saveNotPublish() {
+      console.log("SAVENOTPUBLISHING")
     }
   }
 }
