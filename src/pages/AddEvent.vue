@@ -2,8 +2,12 @@
   <v-container>
     <v-row>
       <v-col>
-        <h1>Add Event</h1>
+        <h1>Add Event {{currentEvent._id}}</h1>
         <v-form ref="addEventForm" v-model="formValidity">
+          <v-text-field
+            label="Name of Event"
+            v-model="eventName"
+          ></v-text-field>
           <v-text-field
             label="Email of Contact Person"
             type="email"
@@ -16,7 +20,7 @@
             :items="eventType"
           ></v-autocomplete>
           <v-text-field
-            v-model="eventDates[0]"
+            v-model="startDate"
             label="Start Date"
             readonly
           ></v-text-field>
@@ -26,8 +30,8 @@
             readonly
           ></v-text-field>
           <v-date-picker v-model="eventDates" range></v-date-picker>
-          <v-file-input label="Add Logo"></v-file-input>
-          <v-file-input label="Attach tournament Flyer"></v-file-input>
+          <v-file-input label="Add Logo" @change="uploadLogo" ></v-file-input>
+          <v-file-input label="Attach tournament Flyer" @change="uploadFlyer"></v-file-input>
           <v-checkbox
             label="Agree to terms & conditions"
             v-model="agreeToTerms"
@@ -64,10 +68,20 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import axios from 'axios'
+
 export default {
+  created() {
+    this.getNewEvent()
+  },
   computed: {
+    ...mapGetters(['currentEvent']),
+    startDate() {
+      return this.eventDates[0] ? this.eventDates[0] : new Date()
+    },
     endDate() {
-      return this.eventDates[1] ? this.eventDates[1] : this.eventDates[0]
+      return this.eventDates[1] ? this.eventDates[1] : this.startDate
     }
   },
   data: () => ({
@@ -78,6 +92,7 @@ export default {
         'You must agree to the terms and conditions to sign up for an account.'
     ],
     eventDates: [],
+    eventName: "",
     eventType: ['Dual', 'Dual Tournament', 'Open Tournament', 'Invite Tournament', 'Round Robin'],
     email: '',
     emailRules: [
@@ -92,9 +107,13 @@ export default {
         value.indexOf('.') <= value.length - 3 ||
         'Email should contain a valid domain extension.'
     ],
-    formValidity: false
+    formValidity: false,
+    eventData: {},
+    eventLogo: null,
+    eventFlyer: null
   }),
   methods: {
+    ...mapActions(['getNewEvent', 'publish', 'saveNotPublish']),
     resetForm() {
       this.$refs.addEventForm.reset()
     },
@@ -104,11 +123,40 @@ export default {
     validateForm() {
       this.$refs.addEventForm.validate()
     },
+    buildEventObject() {
+      let event = JSON.parse(JSON.stringify(this.currentEvent))
+      event.eventName = this.eventName
+      event.startDate = this.startDate
+      event.endDate = this.endDate
+      return event
+    },
     publish() {
-      console.log("PUBLISHING")
+      let event = this.buildEventObject()
+      event.status = 'published'
+      console.log("this.eventName: ", this.eventName)
+      const fd = new FormData()
+      fd.append('event', event)
+      if (this.eventLogo) fd.append('eventLogo', this.eventLogo, `${this.currentEvent._id}-event-logo.png`)
+      if (this.eventFlyer) fd.append('eventFlyer', this.eventFlyer, `${this.currentEvent._id}-event-flyer.pdf`)
+
+      axios.post('api/updateEvent', fd)
+        .then((res) => {
+          console.log("axios.then",res)
+        })
+        .catch(err => {
+          console.error(err)
+        })
     },
     saveNotPublish() {
       console.log("SAVENOTPUBLISHING")
+    },
+    uploadLogo(logo) {
+      console.log("Logo: ", logo)
+      this.eventLogo = logo
+    },
+    uploadFlyer(file) {
+      console.log("Logo: ", file)
+      this.eventFlyer = file
     }
   }
 }

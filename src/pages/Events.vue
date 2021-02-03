@@ -22,11 +22,11 @@
         <tbody>
           <tr
             v-for="event in events"
-            :key="event.id"
+            :key="event._id"
           >
-            <td>{{ event.name }}</td>
-            <td>{{ event.date }}</td>
-            <td>{{ event.eventFlyer }}</td>
+            <td>{{ event.eventName }}</td>
+            <td>{{ event.status}}</td>
+            <td>{{ event._id}}</td>
           </tr>
         </tbody>
       </template>
@@ -36,15 +36,21 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'EventsPage',
+  async created(){
+    let response = await axios.get('api/events')
+    console.log("events:", JSON.stringify(response.data, null, 2))
+    this.events = response.data
+  },
   data() {
     return {
       events: [ // Mock Data
-        {id: 1, name: "Name test 1", date: "today", eventFlyer: "http://eventURL.pdf"},
-        {id: 2, name: "Name 2 test", date: "tomorrow", eventFlyer: "http://eventURL.pdf"},
-        {id: 3, name: "3 name test", date: "Feb. 24th 2021", eventFlyer: "http://eventURL.pdf"},
+        {_id: 1, eventName: "Name test 1", status: "saved", eventFlyer: "http://eventURL.pdf"},
+        {_id: 2, eventName: "Name 2 test", status: "published", eventFlyer: "http://eventURL.pdf"},
+        {_id: 3, eventName: "3 name test", status: "published", eventFlyer: "http://eventURL.pdf"},
       ]
     }
   }

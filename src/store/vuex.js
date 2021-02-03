@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: null
+    user: null,
+    event: {}
   },
   mutations: {
     SET_USER_DATA (state, userData) {
@@ -19,6 +20,10 @@ export default new Vuex.Store({
     CLEAR_USER_DATA () {
       localStorage.removeItem('user')
       location.reload()
+    },
+    SET_EVENT (state, event) {
+      console.log("SET_EVENT: ", event)
+      state.event = event
     }
   },
   actions: {
@@ -38,6 +43,14 @@ export default new Vuex.Store({
     },
     logout ({ commit }) {
       commit('CLEAR_USER_DATA')
+    },
+    getNewEvent({commit}) {
+      return axios
+        .get('api/newEvent')
+        .then(({ data }) => {
+          console.log("Data: ", data)
+          commit('SET_EVENT', data)
+        })
     }
   },
   getters: {
@@ -46,6 +59,10 @@ export default new Vuex.Store({
     },
     userState (state) {
       return state.user
+    },
+    currentEvent (state) {
+      return state.event
     }
+
   }
 })

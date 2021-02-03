@@ -6,8 +6,20 @@ class EventController
     console.log {events}
     res.json(events)
 
-  addEvent: (req, res) ->
-    console.log "CONTROLLER - Event.addEvent request: ", req.body
+  getNewEvent: (req, res) ->
+    event = new ScheduledEvent({
+      location: {
+        address: "1671 E Kansas City Rd"
+        city: "Olathe"
+        state: "KS"
+        postalCode: "66061"
+      }
+    })
+    console.log "Getting New Event - EventController", event
+    return res.json(event)
+
+  updateEvent: (req, res) ->
+    console.log "CONTROLLER - Event.updateEvent request: ", req.event
     return res.status(400).json({error: "Event Data missing"}) unless req.body
 
     event = new ScheduledEvent(req.body)

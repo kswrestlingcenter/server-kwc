@@ -22,11 +22,17 @@ module.exports = (app) ->
       return res.sendStatus(401) if err
       Controllers.Events().getEvents req, res
 
-  app.post '/api/events/newEvent', verifyToken, (req, res) ->
-    console.log "ROUTES - GET Events", req.headers
+  app.get '/api/newEvent', verifyToken, (req, res) ->
+    console.log "ROUTES - GET new Event", req.headers
     jwt.verify req.token, 'the_secret_key', (err) ->
       return res.sendStatus(401) if err
-      Controllers.Events().addEvent req, res
+      Controllers.Events().getNewEvent req, res
+
+  app.post '/api/updateEvent', verifyToken, (req, res) ->
+    console.log "ROUTES - Post updateEvent", req
+    jwt.verify req.token, 'the_secret_key', (err) ->
+      return res.sendStatus(401) if err
+      Controllers.Events().updateEvent req, res
 
   app.post '/api/mailingList', (req, res) ->
     console.log "MAILING LIST", req.body

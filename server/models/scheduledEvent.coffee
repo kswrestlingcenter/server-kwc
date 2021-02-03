@@ -22,6 +22,7 @@ scheduledEvent = new mongoose.Schema
      timezone : String
   entryFee: String
   pictureUrl: String # Link to where we will store this on AWS
+  eventFlyerPDF: String # Link to where we will store this on AWS
 
 scheduledEvent.set 'toJSON', {getters : true} # output the virtual getters when calling toJSON
 
