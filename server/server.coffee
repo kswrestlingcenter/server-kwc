@@ -4,6 +4,7 @@ path           = require 'path'
 cors           = require 'cors'
 helmet         = require 'helmet'
 morgan         = require 'morgan'
+history        = require 'connect-history-api-fallback'
 
 connectDatabase = require('./config/database').connect
 setupRoutes     = require './config/routes'
@@ -15,6 +16,7 @@ app.set('port', process.env.PORT or 5051)
 app.use helmet()
 app.use cors()
 app.use morgan(':method :url :status :response-time ms - :res[content-length]')
+app.use history()
 
 app.use express.json()
 app.use express.urlencoded({extended: true})
