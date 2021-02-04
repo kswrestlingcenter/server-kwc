@@ -83,9 +83,7 @@ export default {
   data() {
     return {
       marketingSubscribers: [ // Mock Data
-        {id: 1, name: "Name test 1", email: "test1@email1.com"},
-        {id: 2, name: "Name 2 test", email: "test2@email2.com"},
-        {id: 3, name: "3 name test", email: "test3@email3.com"},
+        {id: 1, name: "ERROR: Data did not load from DB", email: "mockData@email.com", mailingList: true, created: new Date()}
       ],
       events: [ // Mock Data
         {id: 1, name: "Event 1", date: "today", eventFlyer: "http://eventURL.pdf"},
