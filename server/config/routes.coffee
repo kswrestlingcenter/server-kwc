@@ -37,3 +37,9 @@ module.exports = (app) ->
   app.post '/api/mailingList', (req, res) ->
     console.log "MAILING LIST", req.body
     Controllers.Visitor().addToMarketing req, res
+
+  app.get '/api/mailingList', verifyToken, (req, res) ->
+    console.log "GET MAILING LIST", req.headers
+    jwt.verify req.token, 'the_secret_key', (err) ->
+      return res.sendStatus(401) if err
+      Controllers.Visitor().getMarketingSubscribers req, res

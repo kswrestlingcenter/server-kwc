@@ -6,7 +6,7 @@ class VisitorController
 
     if duplicateVisitor
       if duplicateVisitor.mailingList
-        return res.json({result: "Already subscribed"})
+        return res.json({error: "Already subscribed"})
       Visitor.updateOne {email: req.body.email}, {$set: {mailingList: true}}, (err, response) ->
         if err then return res.json({error: err})
         return res.json({result: "success!"})
@@ -14,7 +14,11 @@ class VisitorController
       newVisitor = new Visitor req.body
       newVisitor.mailingList = true
       newVisitor.save()
-      return res.json({result: "success!", data: newVisitor})
+      return res.json({result: "success", data: newVisitor})
+
+  getMarketingSubscribers: (req, res) ->
+    subscribers = await Visitor.find()
+    return res.json({subscribers})
 
 module.exports = ->
   new VisitorController()

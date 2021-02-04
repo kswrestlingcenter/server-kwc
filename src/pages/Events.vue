@@ -40,7 +40,7 @@ import axios from 'axios'
 
 export default {
   name: 'EventsPage',
-  async created(){
+  async created() {
     let response = await axios.get('api/events')
     console.log("events:", JSON.stringify(response.data, null, 2))
     this.events = response.data

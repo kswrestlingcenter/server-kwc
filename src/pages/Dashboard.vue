@@ -46,6 +46,12 @@
             <th class="text-left">
               Email
             </th>
+            <th class="text-left">
+              subscribed
+            </th>
+            <th class="text-left">
+              created
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -55,6 +61,8 @@
           >
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
+            <td>{{ user.mailingList }}</td>
+            <td>{{ new Date(user.created).toDateString() }}</td>
           </tr>
         </tbody>
       </template>
@@ -63,9 +71,15 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'DashboardPage',
+  async created() {
+    let {data} = await axios.get('api/mailingList')
+    console.log("marketingSubscribers:", JSON.stringify(data.subscribers, null, 2))
+    this.marketingSubscribers = data.subscribers
+  },
   data() {
     return {
       marketingSubscribers: [ // Mock Data

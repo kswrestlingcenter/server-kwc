@@ -42,7 +42,9 @@ console.log "APP - Server started on port %d in %s mode", app.get('port'), app.s
 process.on 'uncaughtException', (err) ->
   console.log "APP - caught an uncaught"
   console.error err
+  process.exit(1)
 
 process.on 'SIGTERM', (err) ->
   console.log "APP - apply SIGTERM"
   console.log err
+  process.exit(1)
