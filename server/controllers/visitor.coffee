@@ -11,7 +11,9 @@ class VisitorController
         if err then return res.json({error: err})
         return res.json({result: "success!"})
     else
+      console.log("\n\nreq.bodhy", req.body)
       newVisitor = new Visitor req.body
+      console.log("new visitor: ", newVisitor, "\n\n\n")
       newVisitor.mailingList = true
       newVisitor.save()
       return res.json({result: "success", data: newVisitor})
@@ -19,6 +21,10 @@ class VisitorController
   getMarketingSubscribers: (req, res) ->
     subscribers = await Visitor.find()
     return res.json({subscribers})
+
+  contact: (req, res) ->
+    console.log("\n\nreq.bodhy", req.body)
+    return res.json({result: "success", data: req.body})
 
 module.exports = ->
   new VisitorController()

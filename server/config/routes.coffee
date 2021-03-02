@@ -43,3 +43,7 @@ module.exports = (app) ->
     jwt.verify req.token, 'the_secret_key', (err) ->
       return res.sendStatus(401) if err
       Controllers.Visitor().getMarketingSubscribers req, res
+  
+  app.post '/api/contactForm', (req, res) ->
+    console.log "CONTACT FORM", req.body
+    Controllers.Visitor().contact req, res
