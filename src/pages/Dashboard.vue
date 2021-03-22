@@ -83,6 +83,9 @@
               subject
             </th>
             <th class="text-left">
+              message
+            </th>
+            <th class="text-left">
               created
             </th>
           </tr>
@@ -92,9 +95,10 @@
             v-for="contact in contactFormResponses"
             :key="contact.id"
           >
-            <td>{{ contact.firstName }}</td>
+            <td>{{ contact.fullName }}</td>
             <td>{{ contact.email }}</td>
             <td>{{ contact.subject }}</td>
+            <td>{{ contact.message }}</td>
             <td>{{ new Date(contact.created).toDateString() }}</td>
           </tr>
         </tbody>
@@ -111,10 +115,13 @@ export default {
   async created() {
     const { data } = await axios.get('api/mailingList')
     const { data: contact }= await axios.get('api/contactForm')
+    const { data: event }= await axios.get('api/events')
     console.log("marketingSubscribers:", JSON.stringify(data.subscribers, null, 2))
     this.marketingSubscribers = data.subscribers
     console.log("contactFORMresp:", contact.contactResponses)
     this.contactFormResponses = contact.contactResponses
+    console.log("updateEvent:", event.events)
+    this.events = event.events
   },
   data() {
     return {
