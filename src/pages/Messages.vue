@@ -16,6 +16,9 @@
               subject
             </th>
             <th class="text-left">
+              message
+            </th>
+            <th class="text-left">
               created
             </th>
           </tr>
@@ -28,6 +31,7 @@
             <td>{{ contact.firstName }}</td>
             <td>{{ contact.email }}</td>
             <td>{{ contact.subject }}</td>
+            <td>{{ contact.message }}</td>
             <td>{{ new Date(contact.created).toDateString() }}</td>
           </tr>
         </tbody>
