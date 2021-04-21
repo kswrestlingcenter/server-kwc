@@ -5,6 +5,8 @@ scheduledEvent = new mongoose.Schema
   created   : type: Date, default: Date.now
   eventName : type: String, required: true
   description: type: String
+  contact: type: String
+  email: type: String
   eventDate :
     startDate : type: Date
     startTime : type: String

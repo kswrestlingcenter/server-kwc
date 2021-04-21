@@ -1,13 +1,8 @@
 <template>
-  <v-container>
-    <h1>Dashboard</h1>
-    <hr>
-    <br>
-    <!-- <h2>Upcoming Events</h2> -->
-    <v-btn :to="'events'">
-      View Upcoming Events
-    </v-btn>
-    <!-- <v-simple-table>
+  <div>
+    <h1>Subscribers page</h1>
+    <h2>Marketing Subsribers: </h2>
+    <v-simple-table>
       <template v-slot:default>
         <thead>
           <tr>
@@ -15,55 +10,44 @@
               Name
             </th>
             <th class="text-left">
-              Date
+              Email
             </th>
-            <th class="text-centered">
-              Event Flyer
+            <th class="text-left">
+              subscribed
+            </th>
+            <th class="text-left">
+              created
             </th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="event in events"
-            :key="event.id"
+            v-for="user in marketingSubscribers"
+            :key="user.id"
           >
-            <td>{{ event.name }}</td>
-            <td>{{ event.date }}</td>
-            <td>{{ event.eventFlyer }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.mailingList }}</td>
+            <td>{{ new Date(user.created).toDateString() }}</td>
           </tr>
         </tbody>
       </template>
-    </v-simple-table> -->
-    <br>
-    <br>
+    </v-simple-table>
+  </div>
 
-    <v-btn :to="'subscribers'">
-      View Subscribers
-    </v-btn>
-    <br>
-    <br>
-    <v-btn :to="'messages'">
-      View Messages
-    </v-btn>
-
-  </v-container>
 </template>
 
 <script>
 import axios from 'axios'
-
 export default {
-  name: 'DashboardPage',
+  name: "subscribers",
   async created() {
     const { data } = await axios.get('api/mailingList')
-    const { data: contact }= await axios.get('api/contactForm')
-    const { data: event }= await axios.get('api/events')
+    const { data: contact } = await axios.get('api/contactForm')
     console.log("marketingSubscribers:", JSON.stringify(data.subscribers, null, 2))
     this.marketingSubscribers = data.subscribers
     console.log("contactFORMresp:", contact.contactResponses)
     this.contactFormResponses = contact.contactResponses
-    console.log("updateEvent:", event.events)
-    this.events = event.events
   },
   data() {
     return {
@@ -82,3 +66,7 @@ export default {
   }
 }
 </script>
+
+<style>
+
+</style>

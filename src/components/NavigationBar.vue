@@ -13,8 +13,14 @@
       You are not logged In
     </v-btn>
 
-    <v-btn v-if="loggedIn" :to="'addEvent'" rounded>
-      + ADD EVENT
+    <v-btn v-if="loggedIn" :to="'events'" rounded>
+      + View Events
+    </v-btn>
+    <v-btn v-if="loggedIn" :to="'subscribers'" rounded>
+      + Subscribers
+    </v-btn>
+    <v-btn v-if="loggedIn" :to="'messages'" rounded>
+      + View Messages
     </v-btn>
 
     <v-spacer v-if="loggedIn"></v-spacer>

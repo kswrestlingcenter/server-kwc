@@ -28,14 +28,14 @@ module.exports = (app) ->
       return res.sendStatus(401) if err
       Controllers.Events().getNewEvent req, res
 
-  app.post '/api/updateEvent', verifyToken, (req, res) ->
+  app.post '/api/events', verifyToken, (req, res) ->
     console.log "ROUTES - Post updateEvent", req
     jwt.verify req.token, 'the_secret_key', (err) ->
       return res.sendStatus(401) if err
       Controllers.Events().updateEvent req, res
 
   app.post '/api/mailingList', (req, res) ->
-    console.log "MAILING LIST", req.body
+    console.log "New MAILING LIST", req.body
     Controllers.Visitor().addToMarketing req, res
 
   app.get '/api/mailingList', verifyToken, (req, res) ->
@@ -46,4 +46,11 @@ module.exports = (app) ->
   
   app.post '/api/contactForm', (req, res) ->
     console.log "CONTACT FORM", req.body
-    Controllers.Visitor().contact req, res
+    Controllers.contact().addNewContact req, res
+
+  app.get '/api/contactForm', verifyToken, (req, res) ->
+      console.log "GET Contacts", req.headers
+      jwt.verify req.token, 'the_secret_key', (err) ->
+        return res.sendStatus(401) if err
+        Controllers.contact().getContactResponses req, res
+

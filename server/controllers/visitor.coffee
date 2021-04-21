@@ -22,9 +22,5 @@ class VisitorController
     subscribers = await Visitor.find()
     return res.json({subscribers})
 
-  contact: (req, res) ->
-    console.log("\n\nreq.bodhy", req.body)
-    return res.json({result: "success", data: req.body})
-
 module.exports = ->
   new VisitorController()
