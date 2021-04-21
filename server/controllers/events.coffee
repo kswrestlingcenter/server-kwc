@@ -1,13 +1,13 @@
-ScheduledEvent = require '../models/scheduledEvent'
+scheduledEvent = require '../models/scheduledEvent'
 
-class EventController
+class eventController
   getEvents: (req, res) ->
-    events = await ScheduledEvent.find()
+    events = await scheduledEvent.find()
     console.log {events}
     res.json(events)
 
   getNewEvent: (req, res) ->
-    event = new ScheduledEvent({
+    event = new scheduledEvent({
       location: {
         address: "1671 E Kansas City Rd"
         city: "Olathe"
@@ -19,14 +19,15 @@ class EventController
     return res.json(event)
 
   updateEvent: (req, res) ->
-    console.log "CONTROLLER - Event.updateEvent request: ", req.event
-    return res.status(400).json({error: "Event Data missing"}) unless req.body
-
-    event = new ScheduledEvent(req.body)
+    event = new scheduledEvent(req.body)
+    console.log "CONTROLLER - Event.updateEvent request: ", req.body
+    # return res.status(400).json({error: "Event Data missing"}) unless req.body
     console.log "\n\n\n", {event}, "\n\n\n"
-    event.save (error) ->
-      return res.status(500).json({error}) if error
-      return res.json(event)
+    event.save()
+    return res.json({result: "success",data: event})
+    # event.save (error) ->
+    #   return res.status(500).json({error}) if error
+    #   return res.json(event)
 
 module.exports = ->
-  new EventController()
+  new eventController()

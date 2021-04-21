@@ -2,14 +2,21 @@
   <v-container>
     <v-row>
       <v-col>
-        <h1>Add Event {{currentEvent._id}}</h1>
+        <h1>Add Event {{currentEvent.eventName}}</h1>
         <v-form ref="addEventForm" v-model="formValidity">
           <v-text-field
             label="Name of Event"
             v-model="eventName"
+            required
           ></v-text-field>
           <v-text-field
-            label="Email of Contact Person"
+            label="Contact Person"
+            type="contact"
+            v-model="eventContact"
+            required
+          ></v-text-field>
+          <v-text-field
+            label="Contact Person Email"
             type="email"
             v-model="email"
             :rules="emailRules"
@@ -30,8 +37,19 @@
             readonly
           ></v-text-field>
           <v-date-picker v-model="eventDates" range></v-date-picker>
+          <v-text-field
+            label="Event Description"
+            type="description"
+            v-model="eventDescription"
+            required
+          ></v-text-field>
+          <v-text-field
+            label="Entry Fee"
+            type="entryFee"
+            v-model="entryFee"
+          ></v-text-field>
           <v-file-input label="Add Logo" @change="uploadLogo" ></v-file-input>
-          <v-file-input label="Attach tournament Flyer" @change="uploadFlyer"></v-file-input>
+          <!-- <v-file-input label="Attach tournament Flyer" @change="uploadFlyer"></v-file-input> -->
           <v-checkbox
             label="Agree to terms & conditions"
             v-model="agreeToTerms"
@@ -78,7 +96,7 @@ export default {
   computed: {
     ...mapGetters(['currentEvent']),
     startDate() {
-      return this.eventDates[0] ? this.eventDates[0] : new Date()
+      return this.eventDates[0] ? this.eventDates[0] : 'Select Date'
     },
     endDate() {
       return this.eventDates[1] ? this.eventDates[1] : this.startDate
@@ -93,7 +111,10 @@ export default {
     ],
     eventDates: [],
     eventName: "",
-    eventType: ['Dual', 'Dual Tournament', 'Open Tournament', 'Invite Tournament', 'Round Robin'],
+    eventDescription: "",
+    entryFee: "",
+    eventContact: "",
+    eventType: ['Dual Tournament', 'Open Tournament', 'Private Event', 'Other'],
     email: '',
     emailRules: [
       value => !!value || 'Email is required.',
@@ -125,9 +146,6 @@ export default {
     },
     buildEventObject() {
       let event = JSON.parse(JSON.stringify(this.currentEvent))
-      event.eventName = this.eventName
-      event.startDate = this.startDate
-      event.endDate = this.endDate
       return event
     },
     publish() {
@@ -138,8 +156,7 @@ export default {
       fd.append('event', event)
       if (this.eventLogo) fd.append('eventLogo', this.eventLogo, `${this.currentEvent._id}-event-logo.png`)
       if (this.eventFlyer) fd.append('eventFlyer', this.eventFlyer, `${this.currentEvent._id}-event-flyer.pdf`)
-
-      axios.post('api/updateEvent', fd)
+      axios.post('api/events', event)
         .then((res) => {
           console.log("axios.then",res)
         })

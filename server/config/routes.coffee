@@ -28,7 +28,7 @@ module.exports = (app) ->
       return res.sendStatus(401) if err
       Controllers.Events().getNewEvent req, res
 
-  app.post '/api/updateEvent', verifyToken, (req, res) ->
+  app.post '/api/events', verifyToken, (req, res) ->
     console.log "ROUTES - Post updateEvent", req
     jwt.verify req.token, 'the_secret_key', (err) ->
       return res.sendStatus(401) if err
