@@ -45,6 +45,18 @@ const router = new Router({
       name: 'events',
       component: () => import('./pages/Events.vue'),
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/subscribers',
+      name: 'subscribers',
+      component: () => import('./pages/Subscribers.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/messages',
+      name: 'messages',
+      component: () => import('./pages/Messages.vue'),
+      meta: { requiresAuth: true }
     }
   ]
 })

@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <h1>Dashboard</h1>
+    <h1>
+      Dashboard
+      <v-btn :to="'addEvent'" rounded>+ ADD EVENT</v-btn>
+    </h1>
     <hr>
     <br>
     <h2>Upcoming Events</h2>

@@ -1,13 +1,8 @@
 <template>
-  <v-container>
-    <h1>Dashboard</h1>
-    <hr>
-    <br>
-    <!-- <h2>Upcoming Events</h2> -->
-    <v-btn :to="'events'">
-      View Upcoming Events
-    </v-btn>
-    <!-- <v-simple-table>
+  <div>
+    <h1>Messages Page</h1>
+    <h2>Contact: </h2>
+    <v-simple-table>
       <template v-slot:default>
         <thead>
           <tr>
@@ -15,47 +10,39 @@
               Name
             </th>
             <th class="text-left">
-              Date
+              Email
             </th>
-            <th class="text-centered">
-              Event Flyer
+            <th class="text-left">
+              subject
+            </th>
+            <th class="text-left">
+              created
             </th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="event in events"
-            :key="event.id"
+            v-for="contact in contactFormResponses"
+            :key="contact.id"
           >
-            <td>{{ event.name }}</td>
-            <td>{{ event.date }}</td>
-            <td>{{ event.eventFlyer }}</td>
+            <td>{{ contact.firstName }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.subject }}</td>
+            <td>{{ new Date(contact.created).toDateString() }}</td>
           </tr>
         </tbody>
       </template>
-    </v-simple-table> -->
-    <br>
-    <br>
-    <v-btn :to="'subscribers'">
-      View Subscribers
-    </v-btn>
-    <br>
-    <br>
-    <v-btn :to="'messages'">
-      View Messages
-    </v-btn>
-
-  </v-container>
+    </v-simple-table>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
-
 export default {
-  name: 'DashboardPage',
+  name: "messages",
   async created() {
     const { data } = await axios.get('api/mailingList')
-    const { data: contact }= await axios.get('api/contactForm')
+    const { data: contact } = await axios.get('api/contactForm')
     console.log("marketingSubscribers:", JSON.stringify(data.subscribers, null, 2))
     this.marketingSubscribers = data.subscribers
     console.log("contactFORMresp:", contact.contactResponses)
@@ -78,3 +65,7 @@ export default {
   }
 }
 </script>
+
+<style>
+
+</style>

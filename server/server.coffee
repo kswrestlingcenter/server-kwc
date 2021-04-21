@@ -14,7 +14,7 @@ app = express()
 app.set('port', process.env.PORT or 5051)
 
 app.use helmet()
-app.use cors()
+app.use cors() # To Do: Trim this down for security
 app.use morgan(':method :url :status :response-time ms - :res[content-length]')
 app.use history()
 
